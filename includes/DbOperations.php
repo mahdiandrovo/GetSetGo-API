@@ -68,7 +68,24 @@
             $stmt->store_result();
             return $stmt->num_rows > 0;
         }
-
+        
+        public function getAllPlaces(){
+            $stmt = $this->con->prepare("SELECT id, name, location, description, latitude, longitude FROM places");
+            $stmt->execute();
+            $stmt->bind_result($id, $name, $location, $description, $latitude, $longitude);
+            $locations = array();
+            while($stmt->fetch()){
+                $location = array();
+                $location['id'] = $id;
+                $location['name'] = $name;
+                $location['location'] = $location;
+                $location['description'] = $description;
+                $location['latitude'] = $latitude;
+                $location['longitude'] = $longitude;
+                array_push($locations,$location);
+            }
+            return $locations;
+        }
 
     }
 

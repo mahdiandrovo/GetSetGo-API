@@ -138,6 +138,24 @@
 
     });
 
+    $app->get('/places', function(Request $request, Response $response){
+
+        $db = new DbOperations;
+        $places = $db->getAllPlaces();
+
+        $response_data = array();
+
+        $response_data['error'] = false;
+        $response_data['message'] = 'Places found';
+        $response_data['places'] = $places;
+
+        $response->write(json_encode($response_data));
+        return $response
+                ->withHeader('Content-type', 'application/json')
+                ->withStatus(200);
+    });
+
+
     function haveEmptyParameters($required_params, $response){
         $error = false;
         $error_params = '';
