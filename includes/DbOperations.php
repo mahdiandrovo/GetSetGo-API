@@ -73,18 +73,18 @@
             $stmt = $this->con->prepare("SELECT id, name, location, description, latitude, longitude FROM places");
             $stmt->execute();
             $stmt->bind_result($id, $name, $location, $description, $latitude, $longitude);
-            $locations = array();
+            $places = array();
             while($stmt->fetch()){
-                $location = array();
-                $location['id'] = $id;
-                $location['name'] = $name;
-                $location['location'] = $location;
-                $location['description'] = $description;
-                $location['latitude'] = $latitude;
-                $location['longitude'] = $longitude;
-                array_push($locations,$location);
+                $place = array();
+                $place['id'] = $id;
+                $place['name'] = $name;
+                $place['location'] = $location;
+                $place['description'] = $description;
+                $place['latitude'] = $latitude;
+                $place['longitude'] = $longitude;
+                array_push($places,$place);
             }
-            return $locations;
+            return $places;
         }
 
     }
