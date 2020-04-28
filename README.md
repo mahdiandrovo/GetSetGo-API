@@ -1,33 +1,20 @@
-# Slim Framework 3 Skeleton Application
+# GetSetGo API
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
+This **REST API** is only created for [GetSetGo Application](https://github.com/mahdiandrovo/GetSetGo). **MySQL Database** used for GetSetGo app. To maintain **HTTP** calls I have used this API. I have used [Slim Framework](http://www.slimframework.com/) to make this **REST API**.
+[GetSetGo](https://github.com/mahdiandrovo/GetSetGo) is a demo app. That’s why I needed only 3 calls(2 POST, 1 GET). POST call are “**createuser**” and “**userlogin**”. GET call is “**places**”.
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+#### Database Format:
+I have used **MySQL Database**. For now, there are two tables. First one is “**users**”, where user information stored. Now it is having 4 columns (id, name, email, password). Second one is “**places**”, where place information stored. Now that table is having 6 columns (id, name, location, description, latitude, longitude). All data are fetching from this database.
 
-## Install the Application
+#### Calls:
+**createuser:** This is a **POST** call. It is created to create a user in database. Three conditions have been checked.
+- **USER_CREATED:** It is a confirmation call. That means if sent data is not in the database and no other errors occurred, this condition will be applied.
+- **USER_FAILURE:** If any error occurred, this condition will be applied.
+- **USER_EXISTS:** If sent email address is already in the database this condition will be applied.
 
-Run this command from the directory in which you want to install your new Slim Framework application.
+**userlogin:** This is a **POST** call. It is created for Login activity. Three conditions have been checked.
+- **USER_AUTHENTICATED:** If send information is matched with one row this condition will be applied.
+- **USER_NOT_FOUND:** If the email address is not stored in the database this condition will be applied.
+- **USER_PASSWORD_DO_NOT_MATCH:** If inputted password will not match this condition will be applied.
 
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
-
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
-
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writeable.
-
-To run the application in development, you can run these commands 
-
-	cd [my-app-name]
-	php composer.phar start
-	
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-
-         cd [my-app-name]
-	 docker-compose up -d
-After that, open `http://0.0.0.0:8080` in your browser.
-
-Run this command in the application directory to run the test suite
-
-	php composer.phar test
-
-That's it! Now go build something cool.
+**places:** This is a **GET** call. It is used to send place informations.
